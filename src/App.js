@@ -35,7 +35,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={octogon} className="App-logo" alt="logo" />
-          <h1 className="App-title">2928</h1>
+          <h1 className="App-title">29-28</h1>
         </header>
     {this.state.user ? (<Home />) : (<Login />)}
       </div>

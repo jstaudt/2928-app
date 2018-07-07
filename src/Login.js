@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
 import fire from './config/fire';
+import anon from './anon.svg';
+import email from './email.svg';
+
+const anonStyle = {
+  backgroundImage: `url(${anon})`
+};
+
+const emailStyle = {
+  backgroundImage: `url(${email})`
+};
 
 class Login extends Component {
 
@@ -46,7 +56,7 @@ class Login extends Component {
       }
       // The client SDK will parse the code from the link for you.
       fire.auth().signInWithEmailLink(email, window.location.href)
-        .then(function(result) {
+        .then(function() {
           // Clear email from storage.
           window.localStorage.removeItem('emailForSignIn');
           // You can access the new user via result.user
@@ -55,7 +65,7 @@ class Login extends Component {
           // You can check if the user is new or existing:
           // result.additionalUserInfo.isNewUser
         })
-        .catch(function(error) {
+        .catch(function() {
           // Some error occurred, you can inspect the code: error.code
           // Common errors could be invalid email and invalid or expired OTPs.
         });
@@ -76,8 +86,6 @@ class Login extends Component {
   loginAnonymously(e) {
     e.preventDefault();
     fire.auth().signInAnonymously().catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
       var errorMessage = error.message;
 
       console.log(errorMessage);
@@ -95,7 +103,7 @@ class Login extends Component {
       // if they open the link on the same device.
       window.localStorage.setItem('emailForSignIn', email);
     })
-    .catch(function(error) {
+    .catch(function() {
       // Some error occurred, you can inspect the code: error.code
     });
   }
@@ -105,24 +113,32 @@ class Login extends Component {
   }
 
   render() {
+
     return(
-      <div className="col-md-6">
-        <form>
-          <div className="form-group">
-            <label htmlFor="inputEmail">email address</label>
-            <input type="email" className="form-control" value={this.state.email} onChange={this.handleChange}
-            name="email"
-            id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"/>
-            <small className="form-text text-muted" id="emailHelp">We'll never share your email with anyone else</small>
+      <div className="col-md-12">
+        <form className="login-form">
+          <div className="col-md-4 login-btn-container" >
+            <button onClick={this.loginAnonymously} type="submit" style={anonStyle} className="login-btn"></button>
           </div>
-          <div className="form-group">
-            <label htmlFor="inputPassword">Password</label>
-            <input type="password" className="form-control" onChange={this.handleChange} value={this.state.password}
-            name="password" id="inputPassword"
-            placeholder="Password"/>
+          <div className="col-md-4 login-btn-container" >
+            <button onClick={this.loginAnonymously} type="submit" style={emailStyle} className="login-btn"></button>
           </div>
-          <button onClick={this.loginAnonymously} type="submit" className="btn btn-primary">Login</button>
-          <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</button>
+          {/* <div className="col-md-4">
+            <div className="form-group">
+              <label htmlFor="inputEmail">email address</label>
+              <input type="email" className="form-control" value={this.state.email} onChange={this.handleChange}
+              name="email"
+              id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"/>
+              <small className="form-text text-muted" id="emailHelp">We'll never share your email with anyone else</small>
+            </div>
+            <div className="form-group">
+              <label htmlFor="inputPassword">Password</label>
+              <input type="password" className="form-control" onChange={this.handleChange} value={this.state.password}
+              name="password" id="inputPassword"
+              placeholder="Password"/>
+            </div>
+            <button onClick={this.signup} className="btn btn-success">Signup</button>
+          </div> */}
         </form>
       </div>
     );

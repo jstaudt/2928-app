@@ -5,23 +5,29 @@
   height: 80px;
 }
 
-/* .App-header {
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.login-btn {
+  height: 400px;
+  width: 250px;
+  background-size: cover;
+  background-repeat: round;
+  border: none;
+  cursor: pointer;
+}
+
+.login-btn-container {
+  display: flex;
+  justify-content: center;
+}
+ .App-header {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  background-color: white;
-  height: 150px;
-  padding: 20px;
-  color: black;
-  font-family: 'Open Sans', sans-serif;
+  align-items: center;
+  padding-top: 10px;
 
 }
-
-.App-title {
-  margin: 0;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-} */
