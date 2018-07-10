@@ -36,9 +36,11 @@ class Login extends Component {
     this.loginAnonymously = this.loginAnonymously.bind(this);
     this.actionCodeSettings = actionCodeSettings;
     this.handleChange = this.handleChange.bind(this);
+    this.handleSignup = this.handleSignup.bind(this);
     this.state = {
       email: '',
       password: '',
+      signUpOpen: false
     }
 
     // Confirm the link is a sign-in with email link.
@@ -85,6 +87,9 @@ class Login extends Component {
 
   loginAnonymously(e) {
     e.preventDefault();
+
+    this.setState({signUpOpen: false});
+
     fire.auth().signInAnonymously().catch(function(error) {
       var errorMessage = error.message;
 
@@ -95,13 +100,17 @@ class Login extends Component {
 
   signup(e) {
     e.preventDefault();
+
     const email = this.state.email;
+
     fire.auth().sendSignInLinkToEmail(email, this.actionCodeSettings)
     .then(function() {
       // The link was successfully sent. Inform the user.
       // Save the email locally so you don't need to ask the user for it again
       // if they open the link on the same device.
       window.localStorage.setItem('emailForSignIn', email);
+
+      alert("Thank you for signing up to 29-28.  An sign up link has been sent to your email.");
     })
     .catch(function() {
       // Some error occurred, you can inspect the code: error.code
@@ -112,6 +121,11 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  handleSignup(e) {
+    e.preventDefault();
+    this.setState({signUpOpen: true})
+  }
+
   render() {
 
     return(
@@ -120,25 +134,20 @@ class Login extends Component {
           <div className="col-md-4 login-btn-container" >
             <button onClick={this.loginAnonymously} type="submit" style={anonStyle} className="login-btn"></button>
           </div>
-          <div className="col-md-4 login-btn-container" >
-            <button onClick={this.loginAnonymously} type="submit" style={emailStyle} className="login-btn"></button>
-          </div>
-          {/* <div className="col-md-4">
-            <div className="form-group">
+          {this.state.signUpOpen ?
+          (<div className="col-md-4 login-btn-container email-input-container">
+            <div className="form-group email-input">
               <label htmlFor="inputEmail">email address</label>
               <input type="email" className="form-control" value={this.state.email} onChange={this.handleChange}
               name="email"
               id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"/>
               <small className="form-text text-muted" id="emailHelp">We'll never share your email with anyone else</small>
             </div>
-            <div className="form-group">
-              <label htmlFor="inputPassword">Password</label>
-              <input type="password" className="form-control" onChange={this.handleChange} value={this.state.password}
-              name="password" id="inputPassword"
-              placeholder="Password"/>
-            </div>
-            <button onClick={this.signup} className="btn btn-success">Signup</button>
-          </div> */}
+              <button onClick={this.signup} className="btn btn-success signup-btn">Signup</button>
+          </div>) :
+          (<div className="col-md-4 login-btn-container" >
+            <button onClick={this.handleSignup} type="submit" style={emailStyle} className="login-btn"></button>
+          </div>)}
         </form>
       </div>
     );

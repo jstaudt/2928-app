@@ -16,6 +16,14 @@ class App extends Component {
 
   componentDidMount() {
     this.authListener();
+
+    // var db = fire.firestore();
+    // db.collection('fights').get().then((querySnapshot) => {
+    //   querySnapshot.forEach((doc) => {
+    //     const derdata = doc.data();
+    //     console.log(derdata);
+    //   })
+    // })
   }
 
   authListener = () => {
