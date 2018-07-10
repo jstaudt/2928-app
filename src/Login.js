@@ -132,7 +132,9 @@ class Login extends Component {
       <div className="col-md-12">
         <form className="login-form">
           <div className="col-md-4 login-btn-container" >
-            <button onClick={this.loginAnonymously} type="submit" style={anonStyle} className="login-btn"></button>
+            <button onClick={this.loginAnonymously} type="submit" className="login-btn">
+              <img src={anon} style={{width: '200px'}} alt="logo" />
+            </button>
           </div>
           {this.state.signUpOpen ?
           (<div className="col-md-4 login-btn-container email-input-container">
@@ -146,7 +148,9 @@ class Login extends Component {
               <button onClick={this.signup} className="btn btn-success signup-btn">Signup</button>
           </div>) :
           (<div className="col-md-4 login-btn-container" >
-            <button onClick={this.handleSignup} type="submit" style={emailStyle} className="login-btn"></button>
+            <button onClick={this.handleSignup} type="submit" className="login-btn">
+              <img src={email} style={{width: '200px'}} alt="logo" />
+            </button>
           </div>)}
         </form>
       </div>
